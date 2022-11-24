@@ -28,11 +28,13 @@ select * from worker where joining_date=2014-02;
 select count(*) from worker where department='admin';
 select first_name,last_name from worker where salary >=50000 and salary<= 100000;
 select department,count(worker_id) no_of_workers from worker group by department order by no_of_workers desc;
-
+select * from worker where worker_id in (select worker_ref_id from title where worker_title='manager');
 select first_name,salary,count(*) from worker group by first_name,salary having count(*)>1;
-
 select * from worker where mod(worker_id,2) <> 0;
 select * from worker where mod(worker_id,2) <> 1;
+create table worker_copy select * from worker;
+
+
 
 
 
