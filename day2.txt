@@ -1,0 +1,90 @@
+package demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Customer {
+
+	/*
+	 * Insert rows into table
+	 * 
+	 * static final String
+	 * queary="insert into customer(cust_id,cust_name,cust_age,cust_address,cust_income,cust_email)"
+	 * + "values (?,?,?,?,?,?)";
+	 */
+
+	static final String db_url = "jdbc:mysql://localhost:3306/cognizant";
+	static final String userName = "root";
+	static final String password = "mysql";
+	static final String driverClass = "com.mysql.jdbc.Driver";
+
+	static final String query = "SELECT * from cus where id=?";
+
+	public static void main(String[] args) throws SQLException {
+
+		// Insert rows into Table
+
+		
+		/*
+		 * try(Connection
+		 * conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/cognizant",
+		 * "root","mysql");
+		 * 
+		 * PreparedStatement ps=conn.prepareStatement(queary);){
+		 * 
+		 * 
+		 * Scanner sc=new Scanner(System.in);
+		 * 
+		 * System.out.println("enter customer Id"); int cid=sc.nextInt();
+		 * System.out.println("enter customer name"); String cname=sc.next();
+		 * System.out.println("enter customer age"); int cage=sc.nextInt();
+		 * System.out.println("enter customer address"); String caddress=sc.next();
+		 * System.out.println("enter customer income"); int cincome=sc.nextInt();
+		 * System.out.println("enter customer email"); String cemail=sc.next();
+		 * 
+		 * ps.setInt(1, cid); ps.setString(2, cname); ps.setInt(3, cage);
+		 * ps.setString(4,caddress ); ps.setInt(5, cincome); ps.setString(6, cemail);
+		 * 
+		 * ps.executeUpdate();
+		 * 
+		 * }catch(SQLException e) {
+		 * 
+		 * e.printStackTrace();
+		 * 
+		 * }
+		 */
+		Connection con = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driverClass);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			con = DriverManager.getConnection(db_url, userName, password);
+			psmt = con.prepareStatement(query);
+			psmt.setInt(1, 4);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				// Display values
+				System.out.println("Cus_id : " + rs.getInt(1));
+				System.out.println("Cus_Name : " + rs.getString(2));
+				System.out.println("Cus_age : " + rs.getInt(3));
+				System.out.println("Cus_address : " + rs.getString(4));
+				System.out.println("Cus_email : " + rs.getString(5));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
