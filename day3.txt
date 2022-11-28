@@ -1,0 +1,57 @@
+package day3;
+
+import demo.A;
+
+interface A {
+
+	void show();
+}
+
+/*
+ * class B implements A { public void show() { System.out.println(" in show"); }
+ * }
+ */
+
+public class LambdaExample {
+
+	public static void main(String[] args) {
+
+		/*
+		 * A obj = new A() { public void show() { System.out.println(" in show"); }
+		 * 
+		 * };
+		 */
+		A obj = () -> System.out.println(" in show"); // lambda expression
+		obj.show();
+
+	}
+
+}
+
+<<<<<<<<<<<<<<<<<<<-------------------------------------------------------------------------------------------------------->>>>>>>>>
+
+package day3;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class StreamExample {
+
+	public static void main(String[] args) {
+		
+		List<Integer> nums=Arrays.asList(3,9,2,7,5,1);
+		
+		Stream<Integer> data=nums.stream();
+		
+	//	Stream<Integer> sortedData=data.sorted(); 
+		
+	//	sortedData.forEach(n->System.out.println(n));
+		
+		Stream<Integer> mapedData=data.map(n->n*2);
+		
+		nums.stream().map(n->n*2).forEach(n->System.out.println(n));
+
+	}
+
+}
